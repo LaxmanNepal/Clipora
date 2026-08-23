@@ -1,0 +1,6 @@
+{
+  "appId":"com.laxmannepal.clipora",
+  "appName":"Clipora",
+  "webDir":".",
+  "server":{"androidScheme":"https"}
+}
