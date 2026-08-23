@@ -1,0 +1,32 @@
+name: Clipora Quality
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate JavaScript syntax
+        run: |
+          node --check app.js
+          node --check runtime.js
+      - name: Validate required app files
+        run: |
+          test -f index.html
+          test -f styles.css
+          test -f app.js
+          test -f runtime.js
+          test -f manifest.webmanifest
+          test -f sw.js
+          grep -q 'id="preview"' index.html
+          grep -q 'id="videoTrack"' index.html
+          grep -q 'runtime.js' index.html
+      - name: Validate manifest JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('manifest.webmanifest','utf8')); console.log('manifest ok')"
