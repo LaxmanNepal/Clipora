@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "project": "Clipora",
+  "input": {
+    "script": "नमस्ते! आज हामी एउटा महत्वपूर्ण विषयबारे कुरा गर्दैछौँ।",
+    "aspect": "9:16",
+    "presenterImage": "presenter.jpg",
+    "voiceReference": "voice.wav"
+  },
+  "pipeline": {
+    "tts": "chatterbox-nepali",
+    "avatar": "sadtalker",
+    "post": "ffmpeg"
+  },
+  "output": {
+    "format": "mp4",
+    "fps": 30,
+    "captionLanguage": "ne"
+  },
+  "privacy": {
+    "sourceMediaLocal": true,
+    "remoteGenerationRequired": true,
+    "voiceRightsConfirmed": true
+  }
+}
