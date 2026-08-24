@@ -20,7 +20,7 @@ Clipora script + photo + optional voice
        import into Clipora
 ```
 
-The homepage's **AI Presenter → Create package** button bundles the script, presenter image and optional voice sample. **Open free Colab** launches the repository's ready-made notebook. No paid API key is required. The current Nepali Chatterbox model documents a T4/free-tier Colab workflow and optional 5–10 second voice cloning. SadTalker provides the portrait-image + audio talking-head stage and is Apache 2.0 licensed. citeturn0search2turn0search3
+The homepage's **AI Presenter → Create package** button bundles the script, presenter image and optional voice sample. **Open free Colab** launches the repository's ready-made notebook. No paid API key is required.
 
 ### Why it is not entirely browser-only
 
@@ -40,7 +40,7 @@ GitHub Pages and normal mobile browsers cannot realistically run the large Pytho
 10. Download `clipora-presenter.mp4`.
 11. Import that MP4 into Clipora.
 
-SadTalker's upstream installation still has dependency/version constraints, so the notebook intentionally performs the TTS stage first and then installs the SadTalker stack rather than pretending the two Python environments are identical. The upstream project currently pins older libraries such as NumPy 1.23.4 in its requirements. citeturn0search0turn58file0
+The notebook separates the TTS and avatar installation stages because the current SadTalker stack has older dependency pins. This is deliberate: it reduces package conflicts instead of claiming the two model stacks can safely share one modern Python environment.
 
 ## Current build
 
