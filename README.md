@@ -4,7 +4,7 @@ Open-source, local-first AI video editor with a CapCut-inspired workflow.
 
 ## AI Presenter — free/local-first
 
-Clipora now has a complete **AI Presenter package workflow** for Nepali talking-presenter videos:
+Clipora has a complete **AI Presenter package workflow** for Nepali talking-presenter videos:
 
 ```text
 Clipora script + photo + optional voice
@@ -20,11 +20,11 @@ Clipora script + photo + optional voice
        import into Clipora
 ```
 
-The homepage's **AI Presenter → Create package** button bundles the script, presenter image and optional voice sample. **Open free Colab** launches the repository's ready-made notebook. No paid API key is required.
+The homepage's **AI Presenter → Create package** button creates the package entirely in the browser. The current package builder does not depend on JSZip or another runtime CDN: it writes the ZIP container locally with the browser's Web APIs. **Open free Colab** launches the repository's ready-made notebook. No paid API key is required.
 
 ### Why it is not entirely browser-only
 
-GitHub Pages and normal mobile browsers cannot realistically run the large Python/PyTorch avatar stack. Pretending otherwise would produce a demo that looks good but does not work. Clipora therefore keeps editing local while using a free Colab GPU only for the heavy generation stage.
+GitHub Pages and normal mobile browsers cannot realistically run the large Python/PyTorch avatar stack. Clipora therefore keeps editing local while using a free Colab GPU only for the heavy generation stage.
 
 ### Presenter workflow
 
@@ -33,14 +33,32 @@ GitHub Pages and normal mobile browsers cannot realistically run the large Pytho
 3. Choose 9:16, 16:9 or 1:1.
 4. Select a presenter image.
 5. Optionally provide a 5–10 second voice sample you have permission to use.
-6. Tap **Create package**.
-7. Tap **Open free Colab**.
-8. Upload `clipora-presenter-package.zip`.
-9. Run the notebook cells.
-10. Download `clipora-presenter.mp4`.
-11. Import that MP4 into Clipora.
+6. Confirm media rights.
+7. Tap **Create package**.
+8. Tap **Open free Colab**.
+9. Upload `clipora-presenter-package.zip`.
+10. Run the notebook cells.
+11. Download `clipora-presenter.mp4`.
+12. Import that MP4 into Clipora.
 
-The notebook separates the TTS and avatar installation stages because the current SadTalker stack has older dependency pins. This is deliberate: it reduces package conflicts instead of claiming the two model stacks can safely share one modern Python environment.
+### Reliability work
+
+The upstream Nepali Chatterbox model currently documents a T4/free-tier Colab path, the `ChatterboxMultilingualTTS` loader, the Nepali fine-tuned `t3_mtl_nepali_final.safetensors` weights, and optional short reference-voice cloning. The model also requires accepting its current Hugging Face access conditions before the fine-tuned weights can be downloaded.
+
+SadTalker currently publishes an older dependency stack, including pinned NumPy/scikit-image-era packages. Its repository also documents separate checkpoint downloads. Clipora therefore treats the TTS and avatar stages as separate dependency-sensitive stages and includes a BasicSR/modern-Torchvision compatibility repair in the documented setup. This is deliberate; blindly installing SadTalker's requirements after Chatterbox can downgrade or replace the TTS runtime.
+
+### Package format
+
+```text
+clipora-presenter-package.zip
+├── clipora-presenter-job.json
+├── README.txt
+└── media/
+    ├── presenter.jpg
+    └── voice.wav          (optional)
+```
+
+The browser refuses packages above 180 MB to avoid mobile-memory failures. Source media is not sent to Clipora's servers by the package builder.
 
 ## Current build
 
@@ -54,6 +72,7 @@ The notebook separates the TTS and avatar installation stages because the curren
 - AI command-planning panel
 - Browser-local FFmpeg export path
 - **AI Presenter package builder**
+- **Local ZIP generation — no runtime ZIP CDN dependency**
 - **Nepali Chatterbox TTS workflow**
 - **SadTalker talking-head workflow**
 - **FFmpeg 9:16 / 16:9 / 1:1 finalization**
