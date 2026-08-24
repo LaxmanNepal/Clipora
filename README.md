@@ -4,102 +4,107 @@ Open-source, local-first AI video editor with a CapCut-inspired workflow.
 
 ## AI Presenter — free/local-first
 
-Clipora includes an **AI Presenter** job builder for Nepali presenter videos. The browser handles the UI and job definition while heavy AI generation stays outside the editor:
+Clipora now has a complete **AI Presenter package workflow** for Nepali talking-presenter videos:
 
 ```text
-Nepali script → Chatterbox Nepali / Nepali VITS → SadTalker → FFmpeg → MP4 → Clipora
+Clipora script + photo + optional voice
+              ↓
+      local ZIP package
+              ↓
+     free Google Colab GPU
+              ↓
+ Nepali Chatterbox TTS → SadTalker → FFmpeg
+              ↓
+       final MP4 download
+              ↓
+       import into Clipora
 ```
 
-The recommended zero-cost proof-of-concept is Google Colab for the AI-heavy stages. The current Nepali Chatterbox model documents a T4/free-tier Colab workflow and optional 5–10 second voice cloning. See `presenter/README.md` and `presenter/colab/README.md`.
+The homepage's **AI Presenter → Create package** button bundles the script, presenter image and optional voice sample. **Open free Colab** launches the repository's ready-made notebook. No paid API key is required. The current Nepali Chatterbox model documents a T4/free-tier Colab workflow and optional 5–10 second voice cloning. SadTalker provides the portrait-image + audio talking-head stage and is Apache 2.0 licensed. citeturn0search2turn0search3
 
-**Important:** GitHub Pages/mobile browsers cannot realistically run the large PyTorch avatar models themselves. Clipora intentionally keeps generation separate: Colab or a stronger local machine generates the presenter video, then the MP4 is imported into the local editor.
+### Why it is not entirely browser-only
 
-## Vision
+GitHub Pages and normal mobile browsers cannot realistically run the large Python/PyTorch avatar stack. Pretending otherwise would produce a demo that looks good but does not work. Clipora therefore keeps editing local while using a free Colab GPU only for the heavy generation stage.
 
-Clipora is designed to edit media in the user's browser/device instead of uploading source footage to a central rendering server. The long-term architecture combines a professional multi-track timeline, WebCodecs/WebGPU preview, FFmpeg export, local project storage, and an AI agent that produces safe editor commands.
+### Presenter workflow
+
+1. Open Clipora and choose **Presenter**.
+2. Enter the Nepali script.
+3. Choose 9:16, 16:9 or 1:1.
+4. Select a presenter image.
+5. Optionally provide a 5–10 second voice sample you have permission to use.
+6. Tap **Create package**.
+7. Tap **Open free Colab**.
+8. Upload `clipora-presenter-package.zip`.
+9. Run the notebook cells.
+10. Download `clipora-presenter.mp4`.
+11. Import that MP4 into Clipora.
+
+SadTalker's upstream installation still has dependency/version constraints, so the notebook intentionally performs the TTS stage first and then installs the SadTalker stack rather than pretending the two Python environments are identical. The upstream project currently pins older libraries such as NumPy 1.23.4 in its requirements. citeturn0search0turn58file0
 
 ## Current build
 
-- Responsive dark editor shell inspired by modern mobile/desktop NLE workflows
-- Media import with local object URLs
-- Video timeline and clip selection
+- Responsive dark editor shell
+- Local media import and IndexedDB persistence
+- Basic video timeline
 - Play/pause and ±5 second navigation
-- Split and delete actions
-- Undo/redo history
-- Local project persistence
+- Split and delete
+- Undo/redo
 - PWA install/offline shell
 - AI command-planning panel
 - Browser-local FFmpeg export path
-- **AI Presenter job builder with Nepali TTS + SadTalker + FFmpeg pipeline**
-- **Portable presenter job JSON export**
+- **AI Presenter package builder**
+- **Nepali Chatterbox TTS workflow**
+- **SadTalker talking-head workflow**
+- **FFmpeg 9:16 / 16:9 / 1:1 finalization**
+- **One-click free Colab notebook**
 
-## Roadmap: foundation → pro
+## Roadmap
 
-### Phase 1 — Editor foundation
-- [x] Editor shell
-- [x] Media import
-- [x] Basic timeline
-- [x] Selection, split, delete
-- [x] Undo/redo
-- [x] Local save
+### Editing engine
 - [ ] Multi-track drag/drop
 - [ ] Accurate playhead/timeline seeking
-
-### Phase 2 — Professional editing engine
 - [ ] Non-destructive trim/ripple editing
 - [ ] WebCodecs preview
 - [ ] Web Audio mixing
-- [ ] Text and graphics layers
-- [ ] Transitions and effects
-- [ ] Keyframes
-- [ ] Waveforms and thumbnails
+- [ ] Text/graphics layers
+- [ ] Transitions/effects/keyframes
+- [ ] Waveforms/thumbnails
 - [ ] Proxy media for mobile
 
-### Phase 3 — Export
-- [ ] Hardware WebCodecs export where supported
-- [ ] FFmpeg fallback
-- [ ] MP4/WebM presets
-- [ ] 720p/1080p/4K presets
-- [ ] Export cancellation and recovery
-- [ ] Export preflight
-
-### Phase 4 — AI agent
-- [ ] Command schema
-- [ ] Undoable AI actions
-- [ ] Timeline inspection tools
-- [ ] Auto highlight selection
+### AI editor
+- [ ] Undoable AI commands
 - [ ] Silence detection
 - [ ] Auto captions
 - [ ] Smart reframing
-- [ ] AI editing plans with preview/apply
+- [ ] Highlight selection
+- [ ] Local model adapters
 - [ ] User-supplied AI providers
-- [ ] Optional local models
 
-### Phase 5 — Creator features
-- [ ] 9:16 Shorts/Reels/TikTok workflows
+### Creator features
+- [ ] 9:16 Shorts/Reels workflows
 - [ ] Caption presets
-- [ ] Templates
-- [ ] Brand kits
+- [ ] Templates and brand kits
 - [ ] Beat markers
 - [ ] Screen/camera recording
 - [ ] Subtitle import/export
 - [ ] Project import/export
 
-### Phase 6 — Android
+### Android
 - [ ] Capacitor/native shell
 - [ ] Native media picker
 - [ ] Android share target
-- [ ] Native export acceleration where practical
-- [ ] Signed APK release through GitHub Releases
+- [ ] Native export acceleration
+- [ ] Signed APK release
 
 ## Architecture principles
 
-1. Local-first: source media should remain on the user's device.
+1. Local-first: source media remains on the user's device until the user explicitly packages it for generation.
 2. Non-destructive: timeline state is the source of truth; exports are generated artifacts.
-3. Action-based: every edit is an undoable command.
-4. Progressive enhancement: WebGPU/WebCodecs when available, safe fallbacks when not.
+3. Action-based: edits should be undoable commands.
+4. Progressive enhancement: use WebGPU/WebCodecs where available and safe fallbacks elsewhere.
 5. AI is a planner, not an unrestricted file manipulator.
-6. Zero mandatory cloud account for core editing.
+6. No mandatory paid cloud account for core editing or the presenter workflow.
 
 ## License
 
