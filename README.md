@@ -2,9 +2,17 @@
 
 Open-source, local-first AI video editor with a CapCut-inspired workflow.
 
-## Vision
+## AI Presenter — free/local-first
 
-Clipora is designed to edit media in the user's browser/device instead of uploading source footage to a central rendering server. The long-term architecture combines a professional multi-track timeline, WebCodecs/WebGPU preview, FFmpeg export, local project storage, and an AI agent that produces safe editor commands.
+Clipora now includes an **AI Presenter** job builder for Nepali presenter videos. It uses the browser for the UI/job definition and keeps the heavy AI generation outside the editor:
+
+```text
+Nepali script → Chatterbox Nepali / Nepali VITS → SadTalker → FFmpeg → MP4 → Clipora
+```
+
+The recommended zero-cost proof-of-concept is Google Colab for the AI-heavy stages. The current Nepali Chatterbox model documents a T4/free-tier Colab workflow and optional 5–10 second voice cloning. See [`presenter/README.md`](presenter/README.md) and [`presenter/colab/README.md`](presenter/colab/README.md).
+
+**Important:** GitHub Pages/mobile browsers cannot realistically run the large PyTorch avatar models themselves. Clipora intentionally does not pretend otherwise. It creates a portable presenter job, while Colab or a stronger local machine performs generation. The resulting MP4 is then imported into the local editor.
 
 ## Current build
 
@@ -18,6 +26,8 @@ Clipora is designed to edit media in the user's browser/device instead of upload
 - PWA install/offline shell
 - AI command-planning panel
 - Browser-local FFmpeg export path
+- **AI Presenter job builder with Nepali TTS + SadTalker + FFmpeg pipeline**
+- **Presenter job JSON export and free Colab workflow documentation**
 
 ## Roadmap: foundation → pro
 
