@@ -1,13 +1,13 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "opencut-web",
+  "name": "clipora-web",
   "compatibility_date": "2025-09-02",
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",
   "routes": [
     {
-      "pattern": "new.opencut.app",
-      "custom_domain": true
+      "pattern": "apps.laxmannepal.com.np/Clipora/*",
+      "zone_name": "laxmannepal.com.np"
     }
   ]
 }
