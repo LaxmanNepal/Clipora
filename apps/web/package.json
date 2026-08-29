@@ -1,5 +1,5 @@
 {
-  "name": "@opencut/web",
+  "name": "@clipora/web",
   "private": true,
   "type": "module",
   "imports": {
@@ -20,9 +20,7 @@
     "@hugeicons/core-free-icons": "^4.1.2",
     "@hugeicons/react": "^1.1.6",
     "@tailwindcss/vite": "^4.1.18",
-    "@tanstack/react-devtools": "latest",
     "@tanstack/react-router": "latest",
-    "@tanstack/react-router-devtools": "latest",
     "@tanstack/react-router-ssr-query": "latest",
     "@tanstack/react-start": "latest",
     "@tanstack/router-plugin": "^1.132.0",
@@ -36,8 +34,8 @@
     "next-themes": "^0.4.6",
     "radix-ui": "^1.4.3",
     "react": "^19.2.0",
-    "react-day-picker": "^10.0.0",
     "react-dom": "^19.2.0",
+    "react-day-picker": "^10.0.0",
     "react-hook-form": "^7.75.0",
     "react-resizable-panels": "^4.11.0",
     "recharts": "3.8.0",
@@ -65,9 +63,6 @@
     "wrangler": "^4.70.0"
   },
   "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "lightningcss"
-    ]
+    "onlyBuiltDependencies": ["esbuild", "lightningcss"]
   }
 }
