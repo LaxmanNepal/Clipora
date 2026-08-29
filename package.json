@@ -1,0 +1,13 @@
+{
+  "name": "clipora",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Open-source video creation platform focused on animated captions and short-form video.",
+  "scripts": {
+    "dev:web": "moon run web:dev",
+    "dev:api": "moon run api:dev",
+    "build:web": "moon run web:build",
+    "test:web": "moon run web:test",
+    "check": "moon ci"
+  }
+}
