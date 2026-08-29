@@ -1,17 +1,17 @@
 {
-  "name": "@opencut/api",
+  "name": "@clipora/api",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "build": "wrangler deploy --dry-run"
   },
   "dependencies": {
-    "elysia": "latest"
+    "elysia": "^1.4.27"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "latest",
-    "wrangler": "latest"
+    "@cloudflare/workers-types": "^4.20260824.0",
+    "wrangler": "^4.70.0"
   }
 }
