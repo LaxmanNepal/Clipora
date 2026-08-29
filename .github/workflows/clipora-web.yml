@@ -1,0 +1,39 @@
+name: Clipora Web
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/web/**'
+      - 'package.json'
+      - 'bun.lock'
+      - 'moon.yml'
+      - '.github/workflows/clipora-web.yml'
+  pull_request:
+    paths:
+      - 'apps/web/**'
+      - 'package.json'
+      - 'bun.lock'
+      - 'moon.yml'
+      - '.github/workflows/clipora-web.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Build Clipora
+        run: bun run build
+      - name: Verify deployment metadata
+        run: |
+          test -d dist
+          test -n "$(find dist -type f | head -1)"
+          echo "Clipora production build generated successfully."
