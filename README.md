@@ -1,78 +1,66 @@
-<table width="100%">
-  <tr>
-    <td align="left" width="120">
-      <img src="https://assets.opencut.app/branding/symbol.svg" alt="OpenCut Logo" width="100" />
-    </td>
-    <td align="right">
-      <h1>OpenCut</h1>
-      <h3 style="margin-top: -10px;">A free and open source video editor for web, desktop, and mobile.</h3>
-    </td>
-  </tr>
-</table>
+# Clipora
 
-[![Discord](https://img.shields.io/discord/1386309140057690133?label=Discord&logo=discord&logoColor=fff&color=5865F2&style=flat)](https://discord.gg/zmR9N35cjK)
-[![X](https://img.shields.io/badge/follow-%40opencutapp-000?logo=x&logoColor=fff&style=flat)](https://x.com/opencutapp)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE)
+**Clipora** is an open-source video creation platform focused on fast, editable, animated captions for Nepali, Nepanglish, Hindi, and English creators.
 
-## Status
+> Built on the OpenCut rewrite foundation, with Clipora-specific product direction and branding.
 
-**OpenCut is being rewritten from the ground up.** What's coming:
+## Product direction
 
-- An Editor API
-- First-class third party plugins (made possible by a plugin-first architecture)
-- Desktop, mobile, and browser from one codebase (Rust core)
-- MCP server (for AI agents)
-- Headless mode (automation, batch rendering)
-- A scripting tab directly in the editor
+Clipora is being developed as an **AI caption and short-video editor** first. The initial product priorities are:
 
-You can still find the previous version at [opencut-app/opencut-classic](https://github.com/opencut-app/opencut-classic), which is the one to reach for today. [opencut.app](https://opencut.app) still runs the classic version. The rewrite will live at [new.opencut.app](https://new.opencut.app) until it's ready to take over.
+1. Import video and audio.
+2. Generate or import captions with word-level timing.
+3. Edit captions visually on a timeline.
+4. Apply animated caption templates.
+5. Support Nepali, Roman Nepali/Nepanglish, Hindi, and English workflows.
+6. Export creator-ready videos for Shorts, Reels, TikTok, and YouTube.
+
+Full multi-track editing, desktop/mobile clients, plugins, automation, and AI-agent integrations are longer-term goals—not promises that the current build already fulfils.
+
+## Architecture
+
+```text
+Clipora
+├── apps/web       React + Vite editor and web experience
+├── apps/api       Cloudflare Worker API / control plane
+├── apps/desktop   Rust desktop client
+├── Cargo.toml     Rust workspace
+└── brand/         Clipora-owned brand assets
+```
+
+The long-term architecture separates the editor/control plane from heavyweight media processing. Video rendering should run in a dedicated render worker rather than inside a request-bound Cloudflare Worker.
 
 ## Development
 
-Install [proto](https://moonrepo.dev/proto) if you haven't already:
-
-**Linux, macOS, WSL:**
+The repository uses Proto, Moon, Bun, Rust, and the platform-specific toolchains pinned in `.prototools`.
 
 ```sh
-bash <(curl -fsSL https://moonrepo.dev/install/proto.sh)
+proto use
+moon run web:dev
+moon run api:dev
+moon run desktop:dev
 ```
 
-**Windows (PowerShell):**
+Web development runs on `http://localhost:5173` and the API development server on `http://localhost:8787`.
 
-```powershell
-irm https://moonrepo.dev/install/proto.ps1 | iex
-```
+## Quality bar
 
-If shims fail to run, allow local scripts for your user:
+Before merging production work, verify:
 
-```powershell
-Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
-```
+- type checking and tests pass
+- web build succeeds
+- API build succeeds
+- Rust workspace checks succeed
+- no OpenCut branding remains in user-facing Clipora surfaces
+- no secrets are committed
+- production dependencies are pinned
 
-From the repo root:
+## Licensing and attribution
 
-```sh
-proto use    # installs the tools pinned in .prototools
-```
+Clipora retains the MIT license and required attribution from the upstream OpenCut-derived codebase. See [`LICENSE`](LICENSE).
 
-```sh
-moon run web:dev       # localhost:5173
-moon run api:dev       # localhost:8787
-moon run desktop:dev   # see apps/desktop/README.md
-```
+Clipora-specific changes, assets, and documentation are maintained in this repository.
 
-## Contributing
+## Status
 
-We're not set up to take outside contributions yet while the architecture is being designed. If you want to follow along, ask questions, or just hang out, [join the Discord](https://discord.gg/zmR9N35cjK) or [open an issue](https://github.com/opencut-app/opencut/issues).
-
-## Sponsors
-
-OpenCut is supported by companies that believe in open source creator tools.
-
-- [**fal.ai**](https://fal.ai?utm_source=github-opencut&utm_campaign=oss): Generative image, video, and audio models all in one place.
-
-Want your logo here? Reach out at [sponsor@opencut.app](mailto:sponsor@opencut.app).
-
-## License
-
-[MIT](LICENSE)
+**Early development.** The editor architecture is being stabilized before production launch. Do not treat the repository as feature-complete.
